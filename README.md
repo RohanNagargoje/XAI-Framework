@@ -1,4 +1,4 @@
-XAI Framework for Common ML Models
+XAI Framework for Common ML Models 
 
 This project aims to build an Explainable AI (XAI) Framework that provides easy-to-use tools for explaining common machine learning models like Decision Trees, Support Vector Machines (SVMs), and Neural Networks. The framework integrates multiple explainability techniques (e.g., SHAP, LIME, Feature Importance) to help data scientists, machine learning practitioners, and AI enthusiasts understand the predictions of these models in a transparent and interpretable manner.
 
