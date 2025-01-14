@@ -1,33 +1,60 @@
-XAI Framework for Common ML Models 
+### XAI Framework for Common ML Models
 
-This project aims to build an Explainable AI (XAI) Framework that provides easy-to-use tools for explaining common machine learning models like Decision Trees, Support Vector Machines (SVMs), and Neural Networks. The framework integrates multiple explainability techniques (e.g., SHAP, LIME, Feature Importance) to help data scientists, machine learning practitioners, and AI enthusiasts understand the predictions of these models in a transparent and interpretable manner.
+#### Overview
+The **Explainable AI (XAI) Framework** is designed to simplify the process of explaining and understanding machine learning models. It provides user-friendly tools for explaining popular models like **Decision Trees**, **Support Vector Machines (SVMs)**, and **Neural Networks**. By integrating state-of-the-art explainability techniques such as **SHAP**, **LIME**, and **Feature Importance**, the framework helps data scientists, machine learning practitioners, and AI enthusiasts make model predictions more transparent and interpretable.
 
-Key Features
-- Model Training: Support for training and evaluating basic machine learning models (Decision Trees, SVM, Neural Networks) on standard datasets.
-- Explainability Techniques: Integration with popular XAI methods like SHAP and LIME for explaining model predictions.
-- Visualization Tools: Provides visual representations of model explanations (e.g., feature importance plots, SHAP value plots, LIME explanations).
-- Modular Architecture: Easily extendable to add new models or explanation techniques.
-- Educational Resource: Detailed documentation and Jupyter notebooks that help beginners understand the framework and how to use it.
+---
 
-Goals
-- Interpretability: Make machine learning models more interpretable and accessible to a wider audience.
-- Explainability: Simplify the process of explaining model predictions using popular explainability methods.
-- Visual Understanding: Provide clear and easy-to-understand visualizations to help users grasp how and why a model makes its decisions.
-- Open Source: Create an open-source tool that can be extended and customized for various AI model explainability use cases.
+### Key Features
 
-Technologies Used
-- Python: Core language for implementation.
-- Scikit-learn: For training models (Decision Trees, SVMs, Neural Networks).
-- SHAP: For model explainability using SHAP values.
-- LIME: For local, interpretable model-agnostic explanations.
-- Matplotlib & Seaborn: For visualizations.
-- Pandas & NumPy: For data manipulation and handling.
-- Jupyter Notebooks: For interactive demonstrations of the framework.
+1. **Model Training and Evaluation**
+   - Train and evaluate common machine learning models like Decision Trees, SVMs, and Neural Networks.
+   - Support for loading and working with standard datasets (e.g., Iris, Wine, Boston Housing).
 
-Usage Example
+2. **Explainability Techniques**
+   - **SHAP (SHapley Additive exPlanations):** Understand feature contributions at both global and local levels.
+   - **LIME (Local Interpretable Model-agnostic Explanations):** Generate localized explanations for individual predictions.
+   - **Feature Importance:** Visualize and rank features based on their contribution to the model’s predictions.
 
-1. Train a Model
-Select and train a machine learning model (e.g., Decision Tree) using a dataset.
+3. **Visualization Tools**
+   - Generate interactive and static visualizations for model explanations:
+     - SHAP Summary and Dependence Plots
+     - LIME Explanations
+     - Feature Importance Bar Charts
+
+4. **Modular Architecture**
+   - Easily extendable to add new models or explainability techniques without altering the core framework.
+
+5. **Educational Resource**
+   - Includes detailed documentation and interactive **Jupyter Notebooks** to guide beginners in understanding explainability concepts and using the framework.
+
+---
+
+### Goals
+
+1. **Interpretability:** Simplify machine learning models and make them accessible to a wider audience.
+2. **Explainability:** Enable users to easily explain model predictions using reliable tools.
+3. **Visual Understanding:** Provide intuitive visualizations to convey complex model behaviors effectively.
+4. **Open Source:** Build an extensible, community-driven project for AI explainability.
+
+---
+
+### Technologies Used
+
+- **Python:** Core language for implementation.
+- **Scikit-learn:** Model training and evaluation.
+- **SHAP:** Feature attribution for explainability.
+- **LIME:** Model-agnostic local explanations.
+- **Matplotlib & Seaborn:** For clear and aesthetic visualizations.
+- **Pandas & NumPy:** Data manipulation and processing.
+- **Jupyter Notebooks:** Interactive demonstrations and tutorials.
+
+---
+
+### Usage Guide
+
+#### 1. Train a Model
+Choose a machine learning model and train it on your dataset.
 
 ```python
 from sklearn.tree import DecisionTreeClassifier
@@ -42,9 +69,10 @@ model = DecisionTreeClassifier()
 model.fit(X, y)
 ```
 
-2. Generate Explanations
-Use SHAP or LIME to generate model explanations and understand which features influence predictions.
+#### 2. Generate Explanations
+Leverage SHAP or LIME to understand model behavior and feature contributions.
 
+**Using SHAP:**
 ```python
 import shap
 
@@ -53,44 +81,71 @@ explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(X)
 
 # Visualize SHAP values
-shap.summary_plot(shap_values, X)
+shap.summary_plot(shap_values, X, feature_names=data.feature_names)
 ```
 
-3. Visualize Results
-Display feature importance and other model insights through intuitive visualizations.
+**Using LIME:**
+```python
+from lime.lime_tabular import LimeTabularExplainer
+
+# Create LIME explainer
+explainer = LimeTabularExplainer(X, feature_names=data.feature_names, class_names=data.target_names, discretize_continuous=True)
+
+# Explain a prediction
+exp = explainer.explain_instance(X[0], model.predict_proba, num_features=3)
+exp.show_in_notebook()
+```
+
+#### 3. Visualize Results
+Create insightful visualizations for feature importance and explanations.
 
 ```python
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-sns.barplot(x=shap_values[0], y=data.feature_names)
+# Example: Feature importance using SHAP values
+sns.barplot(x=shap_values[0].mean(axis=0), y=data.feature_names)
+plt.title("Feature Importance")
 plt.show()
 ```
 
-Installation
+---
 
-Clone the Repository
+### Installation
+
+#### Clone the Repository
 ```bash
 git clone https://github.com/RohanNagargoje/xai-framework.git
 ```
 
-Install Dependencies
+#### Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-Run the Example Notebook
-
-Run the example Jupyter notebook to get started with training and explaining models.
-
+#### Run the Example Notebook
 ```bash
 jupyter notebook example_notebook.ipynb
 ```
 
-Contributing
-Contributions are welcome! Feel free to fork the project, create branches for new features, and submit pull requests. For new features or bug reports, please open an issue on the GitHub repository.
+---
 
-License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### Contributing
+
+We welcome contributions to improve and expand the framework! Here’s how you can help:
+
+1. **Fork the Repository:**
+   - Create your own branch for adding new features or fixing issues.
+
+2. **Open an Issue:**
+   - Report bugs or suggest new features via GitHub issues.
+
+3. **Submit a Pull Request:**
+   - Follow the coding standards and provide detailed descriptions of your changes.
+
+---
+
+### License
+This project is licensed under the **MIT License**. For more details, refer to the [LICENSE](LICENSE) file in the repository.
 
 ---
